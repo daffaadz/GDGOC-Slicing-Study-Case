@@ -1,20 +1,22 @@
 import React from 'react';
-import { User } from '@phosphor-icons/react';
+import { UserIcon } from '@phosphor-icons/react';
 
 const MobileMenu = ({ isOpen }) => {
-  if (!isOpen) return null;
-  
   return (
-    <div className="lg:hidden bg-white border-b">
-      <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-        <a href="#" className="hover:text-teal-600">Home</a>
-        <a href="#" className="hover:text-teal-600">Shop</a>
-        <a href="#" className="hover:text-teal-600">About</a>
-        <a href="#" className="hover:text-teal-600">Blog</a>
-        <a href="#" className="hover:text-teal-600">Contact</a>
-        <a href="#" className="hover:text-teal-600">Pages</a>
-        <a href="#" className="flex items-center gap-2 text-blue-500 hover:text-blue-600">
-          <User size={16} />
+    <div 
+      className={`lg:hidden bg-white border-b shadow-md overflow-hidden transition-all duration-300 ease-in-out ${
+        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+      }`}
+    >
+      <nav className="container mx-auto px-4 py-6 flex flex-col items-center gap-6 text-center">
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">Home</a>
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">Shop</a>
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">About</a>
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">Blog</a>
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">Contact</a>
+        <a href="#" className="text-gray-700 hover:text-teal-600 font-medium text-lg">Pages</a>
+        <a href="#" className="flex items-center gap-2 text-blue-400 hover:text-blue-500 font-medium text-lg mt-2">
+          <UserIcon size={20} />
           <span>Login / Register</span>
         </a>
       </nav>

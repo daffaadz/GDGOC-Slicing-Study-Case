@@ -27,13 +27,25 @@ export default function HomePage() {
   const [totalPages, setTotalPages] = useState(1);
   const [paginationLoading, setPaginationLoading] = useState(false);
   const booksForYouRef = useRef(null);
-  const BOOKS_PER_PAGE = 8;
+  const [booksPerPage, setBooksPerPage] = useState(8);
   
   // Search states
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
+
+  // Handle responsive books per page
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 640;
+      setBooksPerPage(isMobile ? 4 : 8);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -61,13 +73,13 @@ export default function HomePage() {
         // Set Books For You with pagination
         if (booksForYouData.books && booksForYouData.books.length > 0) {
           const transformedBooks = booksForYouData.books.map(transformBookData);
-          setBooksForYou(transformedBooks.slice(0, BOOKS_PER_PAGE));
+          setBooksForYou(transformedBooks.slice(0, booksPerPage));
           
           // Calculate total pages from pagination info or books length
           if (booksForYouData.pagination && booksForYouData.pagination.total_pages) {
             setTotalPages(booksForYouData.pagination.total_pages);
           } else {
-            setTotalPages(Math.ceil(transformedBooks.length / BOOKS_PER_PAGE));
+            setTotalPages(Math.ceil(transformedBooks.length / booksPerPage));
           }
         }
       } catch (err) {
@@ -121,7 +133,7 @@ export default function HomePage() {
       
       if (booksData.books && booksData.books.length > 0) {
         const transformedBooks = booksData.books.map(transformBookData);
-        setBooksForYou(transformedBooks.slice(0, BOOKS_PER_PAGE));
+        setBooksForYou(transformedBooks.slice(0, booksPerPage));
         setCurrentPage(newPage);
         
         if (booksData.pagination && booksData.pagination.total_pages) {
@@ -141,7 +153,7 @@ export default function HomePage() {
     } finally {
       setPaginationLoading(false);
     }
-  }, [currentPage, totalPages, BOOKS_PER_PAGE]);
+  }, [currentPage, totalPages, booksPerPage]);
 
   const handleSearchToggle = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -236,8 +248,8 @@ export default function HomePage() {
       
       {/* Search Results */}
       {searchQuery && isSearchOpen ? (
-        <section className="container mx-auto px-32 py-12 bg-[#FAFAFA] min-h-screen">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+        <section className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-32 py-8 sm:py-12 bg-[#FAFAFA] min-h-screen">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
             Search Results for "{searchQuery}"
           </h2>
           
@@ -267,8 +279,8 @@ export default function HomePage() {
       
       {/* Product Section */}
       {featuredBook && (
-        <section className="container mx-auto px-32 py-8 bg-[#FAFAFA]">
-          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        <section className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-32 py-6 sm:py-8 bg-[#FAFAFA]">
+          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 w-full">
             <ImageCarousel 
               images={featuredBook.images} 
               onPrevious={handlePreviousBook}
@@ -278,7 +290,7 @@ export default function HomePage() {
             <ProductDetail book={featuredBook} />
           </div>
           {allBooks.length > 0 && (
-            <div className="mt-4 text-center text-sm text-gray-500">
+            <div className="mt-8 text-center text-sm text-gray-500">
               Book {currentBookIndex + 1} of {allBooks.length}
             </div>
           )}
@@ -287,8 +299,8 @@ export default function HomePage() {
 
       {/* Your Reading List */}
       {readingList.length > 0 && (
-        <section className="container mx-auto px-32 py-12 bg-[#FAFAFA]">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Your Reading List</h2>
+        <section className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-32 py-8 sm:py-12 bg-[#FAFAFA]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Your Reading List</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
             {readingList.map((book) => (
               <BookCard key={book.id} book={book} />
@@ -299,8 +311,8 @@ export default function HomePage() {
 
       {/* Books For You */}
       {booksForYou.length > 0 && (
-        <section ref={booksForYouRef} className="container mx-auto px-32 py-12 bg-[#FAFAFA]">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Books For You</h2>
+        <section ref={booksForYouRef} className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-32 py-8 sm:py-12 bg-[#FAFAFA]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Books For You</h2>
           
           {paginationLoading ? (
             <div className="flex items-center justify-center py-20">

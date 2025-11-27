@@ -15,12 +15,12 @@ const BookCard = ({ book }) => {
           onError={() => setImageError(true)}
         />
       </div>
-      <div className='bg-white px-4 py-8 flex flex-col justify-start gap-2 min-h-48'>
-        <h3 className="font-semibold text-gray-900 mb-1">{book.title}</h3>
-        <p className="text-sm text-gray-600 mb-2">{book.category}</p>
-        <div className="flex items-center gap-3">
-          <span className="text-gray-400 line-through text-sm">{formatRupiah(book.originalPrice)}</span>
-          <span className="text-teal-600 font-bold">{formatRupiah(book.price)}</span>
+      <div className='bg-white px-2 sm:px-4 py-4 sm:py-8 flex flex-col justify-start gap-1 sm:gap-2 min-h-36 sm:min-h-48'>
+        <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base line-clamp-2">{book.title}</h3>
+        <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2 line-clamp-1">{book.category}</p>
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <span className="text-gray-400 line-through text-xs sm:text-sm">{formatRupiah(book.originalPrice)}</span>
+          <span className="text-teal-600 font-bold text-sm sm:text-base">{formatRupiah(book.price)}</span>
         </div>
       </div>
     </div>

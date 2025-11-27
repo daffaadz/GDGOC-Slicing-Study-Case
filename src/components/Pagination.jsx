@@ -8,16 +8,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange, isLoading }) => {
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1 || isLoading}
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 border border-gray-300 rounded hover:bg-teal-50 hover:border-teal-500 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 disabled:hover:text-gray-700 transition-all cursor-pointer font-medium"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-700 border border-gray-300 rounded hover:bg-teal-50 hover:border-teal-500 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 disabled:hover:text-gray-700 transition-all cursor-pointer font-medium text-sm sm:text-base"
                 aria-label="Previous page"
             >
-                <CaretLeftIcon size={18} weight="bold" />
+                <CaretLeftIcon size={18} weight="bold" className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 <span className="hidden sm:inline">Previous</span>
             </button>
 
             {/* Page Info */}
-            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded">
-                <span className="text-gray-600 font-medium">
+            <div className="flex items-center gap-2 px-2 sm:px-4 py-2 bg-gray-100 rounded">
+                <span className="text-gray-600 font-medium text-xs sm:text-sm">
                     Page <span className="text-teal-600 font-bold">{currentPage}</span> of <span className="font-bold">{totalPages}</span>
                 </span>
             </div>
@@ -26,11 +26,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange, isLoading }) => {
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages || isLoading}
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 border border-gray-300 rounded hover:bg-teal-50 hover:border-teal-500 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 disabled:hover:text-gray-700 transition-all cursor-pointer font-medium"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-700 border border-gray-300 rounded hover:bg-teal-50 hover:border-teal-500 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 disabled:hover:text-gray-700 transition-all cursor-pointer font-medium text-sm sm:text-base"
                 aria-label="Next page"
             >
                 <span className="hidden sm:inline">Next</span>
-                <CaretRightIcon size={18} weight="bold" />
+                <CaretRightIcon size={18} weight="bold" className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
             </button>
         </div>
     );
