@@ -45,6 +45,36 @@ export const fetchBooks = async (params = {}) => {
 };
 
 /**
+ * Search books by title only
+ * @param {string} title - Title to search for
+ */
+export const searchBooksByTitle = async (title) => {
+  try {
+    const booksData = await fetchBooks({ page: 1 });
+    
+    if (!booksData.books || booksData.books.length === 0) {
+      return { books: [], pagination: null };
+    }
+    
+    const searchTerm = title.toLowerCase();
+    const filteredBooks = booksData.books.filter(book => 
+      book.title && book.title.toLowerCase().includes(searchTerm)
+    );
+    
+    return {
+      books: filteredBooks,
+      pagination: {
+        ...booksData.pagination,
+        total: filteredBooks.length
+      }
+    };
+  } catch (error) {
+    console.error("Error searching books by title:", error);
+    throw error;
+  }
+};
+
+/**
  * Fetch random book with optional filters
  * @param {Object} params - Query parameters (year, genre, keyword)
  */

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import { CaretRight } from '@phosphor-icons/react';
 
 const Breadcrumb = () => {
   return (
@@ -7,7 +7,7 @@ const Breadcrumb = () => {
       <div className="container mx-auto px-32">
         <div className="flex items-center gap-2 text-sm">
           <a href="#" className="text-gray-700 hover:text-teal-600 font-semibold">Home</a>
-          <ChevronRight size={16} className="text-gray-400" />
+          <CaretRight size={16} className="text-gray-400" />
           <span className="text-gray-400">Shop</span>
         </div>
       </div>
